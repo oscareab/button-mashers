@@ -158,6 +158,8 @@ function kill(color) {
 
 function initQR() {
     let url = window.location.href;
+    url = url.substring(0, url.lastIndexOf('/'));
+
     let qrcode = new QRCode('qr');
-    qrcode.makeCode(window.location.href);
+    qrcode.makeCode(url);
 }

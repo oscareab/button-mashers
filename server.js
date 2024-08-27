@@ -31,15 +31,6 @@ io.on('connection', (socket) => {
   socket.on('disconnect', function() {
     console.log('A user disconnected');
   });
-
-  socket.on('getLink', function() {
-    if(process.argv.length > 2 ) {
-      socket.emit('sendLink', process.argv[2]);
-    } else {
-      socket.emit('sendLink', 'none');
-    }
-    
-  })
 });
 
 const PORT = process.env.PORT || 8000;
