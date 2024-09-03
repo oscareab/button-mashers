@@ -4,8 +4,7 @@ const socket = io();
 const snare = new Snare();
 const hats = new HighHat();
 const kick = new KickDrum();
-
-const synth = new Tone.Synth().toDestination();
+const synth = new Synth();
 
 let beat = [['h', 'k'], 'h', 'h', ['h', 'k'],
     's', 'h', 'h', ['h', 'k'],
@@ -13,12 +12,12 @@ let beat = [['h', 'k'], 'h', 'h', ['h', 'k'],
     's', 'h', 'h', 'h'];
 let beatIndex = 0;
 
-let melody = ['G4', 'B4', 'C5', 'D5', 'F#5', "A5", 'B5', 'D5'];
-let melodyIndex = 0;
-
 let colors = ['pink', 'blue', 'green', 'purp'];
 let colorsLeft = [0, 0, 0, 0]
+
 let numSquares = 0;
+let rows = 0;
+let cols = 0;
 
 $(document).ready(function () {
     initQR();
@@ -84,36 +83,28 @@ function populateGrid() {
     let width = $("#grid").width();
     let height = $("#grid").height();
 
-    let rows = Math.floor(width / 50);
-    let cols = Math.floor(height / 50);
+    rows = Math.floor(height / 50);
+    cols = Math.floor(width / 50);
     numSquares = rows * cols;
 
-    for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-            let index = Math.floor(Math.random() * colors.length);
-            let color = colors[index]
-            colorsLeft[index]++;
-            $("#grid").append(`<div class="bg-${color} btn hover:bg-${color} active:bg-white w-[50px] h-[50px]"></div>`)
-        }
+    for (let i = 0; i < numSquares; i++) {
+        let index = Math.floor(Math.random() * colors.length);
+        let color = colors[index]
+        colorsLeft[index]++;
+
+        $("#grid").append(`<div class="bg-${color} btn hover:bg-${color} active:bg-white w-[50px] h-[50px]"></div>`)
     }
 }
 
-function playSound(color) {
-    switch (color) {
-        case 'pink':
-            playMelody();
-            break;
-        case 'green':
-            playBeat();
-            break;
-    }
-}
 
-function playMelody() {
-    let note = melody[melodyIndex % 8];
+function playMelody(index) {
+    index = index - 1;
 
-    synth.triggerAttackRelease(note, '16n');
-    melodyIndex++;
+    let row = Math.floor(index / rows);
+    let col = index % cols;
+
+    console.log(`Index: ${index} Row: ${row}, Col: ${col}`);
+    synth.play();
 }
 
 function playBeat() {
@@ -144,14 +135,23 @@ function kill(color) {
     let killed = false;
     while (!killed) {
         let index = Math.floor(Math.random() * numSquares);
-        let classes = $('#grid').children().eq(index - 1).attr('class').split(/\s+/);
+        const button = $('#grid').children().eq(index - 1);
+        let classes = button.attr('class').split(/\s+/);
 
         if (classes[0] == `bg-${color}`) {
-            $('#grid').children().eq(index - 1).attr('class', `btn bg-transparent border-0 hover:bg-transparent w-[50px] h-[50px] cursor-none `)
+            button.attr('class', `btn bg-transparent border-0 hover:bg-transparent w-[50px] h-[50px] cursor-none `)
 
             colorsLeft[colors.indexOf(color)]--;
             killed = true;
-            playSound(color);
+
+            switch (color) {
+                case 'pink':
+                    playMelody(index);
+                    break;
+                case 'green':
+                    playBeat();
+                    break;
+            }
         }
     }
 }
