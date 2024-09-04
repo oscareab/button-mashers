@@ -103,8 +103,7 @@ function playMelody(index) {
     let row = Math.floor(index / rows);
     let col = index % cols;
 
-    console.log(`Index: ${index} Row: ${row}, Col: ${col}`);
-    synth.play();
+    synth.play(row, col, rows, cols);
 }
 
 function playBeat() {
