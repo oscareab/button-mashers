@@ -3,7 +3,7 @@ const socket = io();
 
 let colors = ['pink', 'blue', 'green', 'purp'];
 
-$(document).ready(function () {
+$(function () {
     $('*').css('touch-action', 'manipulation');
     
     $('.btn').on('touchstart mousedown', function () {
