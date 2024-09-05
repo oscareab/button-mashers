@@ -4,6 +4,7 @@ const socket = io();
 let colors = ['pink', 'blue', 'green', 'purp'];
 
 $(function () {
+    console.log('DOM loaded');
     $('*').css('touch-action', 'manipulation');
     
     $('.btn').on('touchstart mousedown', function () {
