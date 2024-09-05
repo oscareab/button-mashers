@@ -15,7 +15,6 @@ io.on('connection', (socket) => {
 
 
   socket.on('pinkPress', function() {
-    console.log('pinkPress');
     io.emit('killPink')
   });
 
