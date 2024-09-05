@@ -8,9 +8,11 @@ const server = http.createServer(app);
 const io = new SocketIOServer(server);
 
 app.use(express.static('public'));
+app.use('/node_modules', express.static('node_modules'));
 
 io.on('connection', (socket) => {
-  console.log('A user connected');
+  console.log('A user connected: ', socket.id);
+
 
   socket.on('pinkPress', function() {
     io.emit('killPink')

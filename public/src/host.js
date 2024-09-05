@@ -1,4 +1,11 @@
 
+
+import { Synth } from './synths/synth.js';
+import { KickDrum } from './synths/kick.js';
+import { HighHat } from './synths/highhat.js';
+import { Snare } from './synths/snare.js';
+
+
 const socket = io();
 
 const snare = new Snare();
@@ -19,7 +26,7 @@ let numSquares = 0;
 let rows = 0;
 let cols = 0;
 
-$(document).ready(function () {
+$(function () {
     initQR();
 
     $(document).keypress(function (e) {
@@ -36,15 +43,6 @@ $(document).ready(function () {
         // debug ONLY s to test drums
         if (e.which == 115) {
             kill('green');
-            //playSnare();
-        }
-
-        // debug ONLY enter to start
-        if (e.which == 13) {
-            $("#grid").toggleClass("hidden");
-            $("#menu").toggleClass("hidden");
-
-            init();
         }
     });
 
@@ -57,7 +55,6 @@ $(document).ready(function () {
 })
 
 function init() {
-    Tone.start();
     populateGrid();
 
     $('.btn, #grid').toggleClass('cursor-none');

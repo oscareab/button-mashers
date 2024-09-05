@@ -1,5 +1,6 @@
+import '/node_modules/tone/build/Tone.js';
 
-class Synth {
+export class Synth {
     constructor() {
         this.panner = new Tone.PanVol().toDestination();
 
@@ -20,7 +21,7 @@ class Synth {
     play(row, col, rows, cols) {
         let pan = ((col / cols) * 2) - 1;
         this.panner.pan.value = pan;
-        let freq = (1 - (row / rows)) * 500 + 200;
+        let freq = (1 - (row / rows)) * 500 + 600;
 
         this.synth.triggerAttackRelease(freq, "8n");
     }

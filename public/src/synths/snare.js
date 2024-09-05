@@ -1,5 +1,5 @@
-
-class Snare {
+import '/node_modules/tone/build/Tone.js';
+export class Snare {
     constructor() {
         this.snareDist = new Tone.BitCrusher(1).toDestination();
 

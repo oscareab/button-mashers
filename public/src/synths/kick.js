@@ -1,5 +1,5 @@
-
-class KickDrum {
+import '/node_modules/tone/build/Tone.js';
+export class KickDrum {
     constructor() {
         this.filter = new Tone.Filter({
             type: 'lowpass',
