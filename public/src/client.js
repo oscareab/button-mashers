@@ -1,10 +1,10 @@
+import "../../../../../../../node_modules/jquery/dist/jquery.min.js"
 
 const socket = io();
 
 let colors = ['pink', 'blue', 'green', 'purp'];
 
 $(function () {
-    console.log('DOM loaded');
     $('*').css('touch-action', 'manipulation');
     
     $('.btn').on('touchstart mousedown', function () {
@@ -19,6 +19,7 @@ $(function () {
     });
 
     $("#btn1").on('click', function () {
+        console.log('pink press');
         socket.emit('pinkPress');
     });
 

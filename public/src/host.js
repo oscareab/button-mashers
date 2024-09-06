@@ -1,30 +1,8 @@
-
-
-import { Synth } from './synths/synth.js';
-import { KickDrum } from './synths/kick.js';
-import { HighHat } from './synths/highhat.js';
-import { Snare } from './synths/snare.js';
-
+import "../../../../../../../node_modules/jquery/dist/jquery.min.js"
+import { Grid } from "./modules/grid.js";
 
 const socket = io();
-
-const snare = new Snare();
-const hats = new HighHat();
-const kick = new KickDrum();
-const synth = new Synth();
-
-let beat = [['h', 'k'], 'h', 'h', ['h', 'k'],
-    's', 'h', 'h', ['h', 'k'],
-    'h', ['h', 'k'], 'h', ['h', 'k'],
-    's', 'h', 'h', 'h'];
-let beatIndex = 0;
-
-let colors = ['pink', 'blue', 'green', 'purp'];
-let colorsLeft = [0, 0, 0, 0]
-
-let numSquares = 0;
-let rows = 0;
-let cols = 0;
+let grid;
 
 $(function () {
     initQR();
@@ -36,71 +14,60 @@ $(function () {
 
         // debug ONLY k to kill
         if (e.which == 107) {
-            kill('pink')
-
+            grid.killAndPlay('pink')
         }
 
         // debug ONLY s to test drums
         if (e.which == 115) {
-            kill('green');
+            grid.killAndPlay('green');
         }
     });
 
     $("#startBtn").on('click', function () {
-        $("#grid").toggleClass("hidden");
         $("#menu").toggleClass("hidden");
-
+        $("#grid").toggleClass("hidden");
         init();
     })
 })
 
 function init() {
-    populateGrid();
-
-    $('.btn, #grid').toggleClass('cursor-none');
-
-    socket.on('killPink', function () {
-        kill('pink');
-    });
-
-    socket.on('killBlue', function () {
-        kill('blue');
-    });
-
-    socket.on('killGreen', function () {
-        kill('green');
-    });
-
-    socket.on('killPurp', function () {
-        kill('purp');
-    });
-}
-
-function populateGrid() {
     let width = $("#grid").width();
     let height = $("#grid").height();
 
-    rows = Math.floor(height / 50);
-    cols = Math.floor(width / 50);
-    numSquares = rows * cols;
+    grid = new Grid(width, height);
+    grid.fillRandomSelection(["pink", "green"]);
 
-    for (let i = 0; i < numSquares; i++) {
-        let index = Math.floor(Math.random() * colors.length);
-        let color = colors[index]
-        colorsLeft[index]++;
+    $('').toggleClass('cursor-none');
 
-        $("#grid").append(`<div class="bg-${color} btn hover:bg-${color} active:bg-white w-[50px] h-[50px]"></div>`)
-    }
+    socket.on('killPink', function () {
+        grid.kill('pink');
+    });
+
+    socket.on('killBlue', function () {
+        grid.kill('blue');
+    });
+
+    socket.on('killGreen', function () {
+        grid.kill('green');
+    });
+
+    socket.on('killPurp', function () {
+        grid.kill('purp');
+    });
 }
 
-
-function playMelody(index) {
-    index = index - 1;
-
-    let row = Math.floor(index / rows);
-    let col = index % cols;
-
-    synth.play(row, col, rows, cols);
+function playSound(color) { 
+    switch (color) {
+        case 'pink':
+            break;
+        case 'blue':
+            break;
+        case 'green':
+            playBeat();
+            break;
+        case 'purp':
+            break;
+    }
 }
 
 function playBeat() {
@@ -121,35 +88,6 @@ function playBeat() {
     }
 
     beatIndex++;
-}
-
-function kill(color) {
-    if (colorsLeft[colors.indexOf(color)] <= 0) {
-        return;
-    }
-
-    let killed = false;
-    while (!killed) {
-        let index = Math.floor(Math.random() * numSquares);
-        const button = $('#grid').children().eq(index - 1);
-        let classes = button.attr('class').split(/\s+/);
-
-        if (classes[0] == `bg-${color}`) {
-            button.attr('class', `btn bg-transparent border-0 hover:bg-transparent w-[50px] h-[50px] cursor-none `)
-
-            colorsLeft[colors.indexOf(color)]--;
-            killed = true;
-
-            switch (color) {
-                case 'pink':
-                    playMelody(index);
-                    break;
-                case 'green':
-                    playBeat();
-                    break;
-            }
-        }
-    }
 }
 
 function initQR() {

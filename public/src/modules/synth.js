@@ -18,11 +18,10 @@ export class Synth {
         }).connect(this.panner);
     }
 
-    play(row, col, rows, cols) {
-        let pan = ((col / cols) * 2) - 1;
-        this.panner.pan.value = pan;
-        let freq = (1 - (row / rows)) * 500 + 600;
+    play(freq, pan) {
+        const freqMod = Math.random() * 50;
 
-        this.synth.triggerAttackRelease(freq, "8n");
+        this.panner.pan.value = pan;
+        this.synth.triggerAttackRelease(freq + freqMod, "8n");
     }
 }
