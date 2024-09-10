@@ -10,7 +10,7 @@ export class Grid {
         this.colors = ['pink', 'blue', 'green', 'purp'];
         this.colorsLeft = [0, 0, 0, 0];
 
-        this.player = new Player();
+        this.player = new Player(this);
     }
 
     fillRandom() {
@@ -42,6 +42,7 @@ export class Grid {
         }
     }
 
+    // Kills a square of a specific color and plays associated sound
     killAndPlay(color) {
         if (this.colorsLeft[this.colors.indexOf(color)] <= 0) {
             return;
@@ -72,14 +73,7 @@ export class Grid {
     }
 
     playSynth(index) {
-        index = index - 1;
-        let row = Math.floor(index / this.rows);
-        let col = index % this.cols;
-
-        let pan = ((col / this.cols) * 2) - 1;
-        let freq = (1 - (row / this.rows)) * 500 + 600;
-
-        this.player.playSynth(freq, pan);
+        this.player.playSynth(index);
     }
 
     playBeat() {

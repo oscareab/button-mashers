@@ -1,7 +1,8 @@
-import '/node_modules/tone/build/Tone.js';
+import "../../../../../../../../node_modules/tone/build/Tone.js";
+
 export class Snare {
     constructor() {
-        this.snareDist = new Tone.BitCrusher(1).toDestination();
+        this.snareDist = new Tone.BitCrusher(16).toDestination();
 
         this.noise = new Tone.NoiseSynth({
             noise: {

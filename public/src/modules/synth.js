@@ -1,8 +1,12 @@
 import '/node_modules/tone/build/Tone.js';
 
 export class Synth {
-    constructor() {
-        this.panner = new Tone.PanVol().toDestination();
+    constructor(grid) {
+        this.grid = grid;
+
+        this.verb = new Tone.Reverb(0.25).toDestination();
+
+        this.panner = new Tone.PanVol().connect(this.verb);
 
         this.synth = new Tone.Synth({
             oscillator: {

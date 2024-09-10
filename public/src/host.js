@@ -35,10 +35,10 @@ function init() {
     let height = $("#grid").height();
 
     grid = new Grid(width, height);
+    
+    // grid.fillColor("pink")
     grid.fillRandomSelection(["pink", "green"]);
-
-    $('').toggleClass('cursor-none');
-
+    // grid.fillRandom();   
     socket.on('killPink', function () {
         grid.kill('pink');
     });
@@ -94,6 +94,10 @@ function initQR() {
     let url = window.location.href;
     url = url.substring(0, url.lastIndexOf('/'));
 
-    let qrcode = new QRCode('qr');
+    let qrcode = new QRCode('qr', {
+        text: url,
+        width: 512,
+        height: 512
+    });
     qrcode.makeCode(url);
 }
