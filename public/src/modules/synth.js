@@ -4,7 +4,7 @@ export class Synth {
     constructor(grid) {
         this.grid = grid;
 
-        this.verb = new Tone.Reverb(0.25).toDestination();
+        this.verb = new Tone.Reverb(0.25);
 
         this.panner = new Tone.PanVol().connect(this.verb);
 
@@ -27,5 +27,10 @@ export class Synth {
 
         this.panner.pan.value = pan;
         this.synth.triggerAttackRelease(freq + freqMod, "8n");
+    }
+
+    connect(destination) {
+        this.verb.connect(destination);
+        console.log(`Connected to ${destination}`);
     }
 }

@@ -13,6 +13,10 @@ export class Grid {
         this.player = new Player(this);
     }
 
+    getLevel() {
+        return this.player.getLevel();
+    }
+
     fillRandom() {
         for (let i = 0; i < this.numSquares; i++) {
             let index = Math.floor(Math.random() * this.colors.length);

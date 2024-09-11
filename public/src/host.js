@@ -31,6 +31,11 @@ $(function () {
 })
 
 function init() {
+    setInterval(function () {
+        let level = grid.getLevel();
+        console.log(level);
+    }, 100);
+
     let width = $("#grid").width();
     let height = $("#grid").height();
 

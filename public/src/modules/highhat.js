@@ -33,4 +33,8 @@ export class HighHat {
         this.hatNoise.triggerAttackRelease("16n");
         this.hatMetal.triggerAttackRelease("16n");
     }
+
+    connect(destination) {
+        this.hatDist.connect(destination);
+    }
 }

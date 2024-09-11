@@ -50,4 +50,8 @@ export class Snare {
         this.metal.triggerAttackRelease("16n");
         this.membrane.triggerAttackRelease("C2", "16n");
     }
+
+    connect(destination) {
+        this.snareDist.connect(destination);
+    }
 }

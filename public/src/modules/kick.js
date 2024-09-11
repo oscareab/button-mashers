@@ -29,4 +29,8 @@ export class KickDrum {
     play() {
         this.membrane.triggerAttackRelease("C2", "16n");
     }
+
+    connect(destination) {
+        this.filter.connect(destination);
+    }
 }

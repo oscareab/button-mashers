@@ -1,5 +1,4 @@
 import '../../../node_modules/tone/build/Tone.js';
-import { Grid } from './grid.js';
 
 import { Synth } from './synth.js';
 import { KickDrum } from './kick.js';
@@ -12,6 +11,8 @@ export class Player {
         this.kick = new KickDrum();
         this.hats = new HighHat();
         this.snare = new Snare();
+
+        this.meter = new Tone.Meter();
         this.beat = [['h', 'k'], 'h', 'h', ['h', 'k'],
             's', 'h', 'h', ['h', 'k'],
             'h', ['h', 'k'], 'h', ['h', 'k'],
@@ -19,8 +20,22 @@ export class Player {
         this.beatIndex = 0;
 
         this.grid = grid;
+
+        this.initMeter()
     }
 
+    initMeter() {
+        this.synth.connect(this.meter);
+        this.kick.connect(this.meter);
+        this.hats.connect(this.meter);
+        this.snare.connect(this.meter);
+
+        this.meter.toDestination();
+    }
+
+    getLevel() { 
+        return this.meter.getValue();
+    }
 
 
     playSynth(index) {
@@ -61,7 +76,7 @@ export class Player {
             console.error("Calculated frequency is invalid", freq);
             return;
         }
-        
+
         // Get the closest frequency in 19-TET
         let closestFreq = this.closestFreq(freq);
 
