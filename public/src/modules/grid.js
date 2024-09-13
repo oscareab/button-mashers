@@ -11,9 +11,12 @@ export class Grid {
         this.colorsLeft = [0, 0, 0, 0];
 
         this.player = new Player(this);
+        
+        this.levels = [["pink"], ["pink"], ["pink", "green"], ["pink", "green"], ["pink"],];
+        this.levelIndex = 0;
     }
 
-    getLevel() {
+    getMeter() {
         return this.player.getLevel();
     }
 
@@ -46,8 +49,17 @@ export class Grid {
         }
     }
 
-    // Kills a square of a specific color and plays associated sound
     killAndPlay(color) {
+
+        if(this.colorsLeft.reduce((total, count) => total + count, 0) == 0) {
+            // this.nextLevel();
+            // console.log("next level");
+
+            $("#grid").empty();
+            this.fillRandom();
+            return;
+        }
+
         if (this.colorsLeft[this.colors.indexOf(color)] <= 0) {
             return;
         }
@@ -74,6 +86,28 @@ export class Grid {
                 }
             }
         }
+    }
+
+    startLevels() {
+        this.nextLevel();
+    }
+
+    nextLevel() {
+        $("#grid").empty();
+
+        if(this.levelIndex > this.levels.length) {
+            return;
+        }
+
+        if(this.levels[this.levelIndex].length == 1) {
+            this.fillColor(this.levels[this.levelIndex][0]);
+        } else if(this.levels[this.levelIndex].length > 1 && this.levels[this.levelIndex].length < 4) {
+            this.fillRandomSelection(this.levels[this.levelIndex]);
+        } else {
+            this.fillRandom();
+        }
+
+        this.levelIndex++;
     }
 
     playSynth(index) {

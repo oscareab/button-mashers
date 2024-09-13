@@ -27,23 +27,20 @@ $(function () {
         $("#menu").toggleClass("hidden");
         $("#grid").toggleClass("hidden");
         init();
-    })
+    });
 })
 
 function init() {
-    setInterval(function () {
-        let level = grid.getLevel();
-        console.log(level);
-    }, 100);
+    // setInterval(function () {
+    //     let level = grid.getMeter();
+    //     console.log(level);
+    // }, 100);
 
     let width = $("#grid").width();
     let height = $("#grid").height();
 
     grid = new Grid(width, height);
-    
-    // grid.fillColor("pink")
-    grid.fillRandomSelection(["pink", "green"]);
-    // grid.fillRandom();   
+
     socket.on('killPink', function () {
         grid.killAndPlay('pink');
     });
@@ -59,40 +56,9 @@ function init() {
     socket.on('killPurp', function () {
         grid.killAndPlay('purp');
     });
-}
 
-function playSound(color) { 
-    switch (color) {
-        case 'pink':
-            break;
-        case 'blue':
-            break;
-        case 'green':
-            playBeat();
-            break;
-        case 'purp':
-            break;
-    }
-}
-
-function playBeat() {
-    let notes = beat[beatIndex % beat.length];
-
-    for (const note of notes) {
-        switch (note) {
-            case 'k':
-                kick.play();
-                break;
-            case 'h':
-                hats.play();
-                break;
-            case 's':
-                snare.play();
-                break;
-        }
-    }
-
-    beatIndex++;
+    //grid.startLevels();
+    grid.fillRandom();
 }
 
 function initQR() {

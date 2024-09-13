@@ -31,6 +31,5 @@ export class Synth {
 
     connect(destination) {
         this.verb.connect(destination);
-        console.log(`Connected to ${destination}`);
     }
 }

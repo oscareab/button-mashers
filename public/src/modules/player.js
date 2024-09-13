@@ -13,10 +13,9 @@ export class Player {
         this.snare = new Snare();
 
         this.meter = new Tone.Meter();
-        this.beat = [['h', 'k'], 'h', 'h', ['h', 'k'],
-            's', 'h', 'h', ['h', 'k'],
-            'h', ['h', 'k'], 'h', ['h', 'k'],
-            's', 'h', 'h', 'h'];
+        this.beat = [
+            ['h', 'k'], 'h',['h', 'k'], 'h', ['h', 'k', 's'], 'h', 'h', 's', ['h', 'k'], 's', ['h', 'k'], 'h', ['h', 'k', 's'], 'h', 'h', 'h'
+        ]
         this.beatIndex = 0;
 
         this.grid = grid;
