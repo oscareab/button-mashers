@@ -45,19 +45,19 @@ function init() {
     grid.fillRandomSelection(["pink", "green"]);
     // grid.fillRandom();   
     socket.on('killPink', function () {
-        grid.kill('pink');
+        grid.killAndPlay('pink');
     });
 
     socket.on('killBlue', function () {
-        grid.kill('blue');
+        grid.killAndPlay('blue');
     });
 
     socket.on('killGreen', function () {
-        grid.kill('green');
+        grid.killAndPlay('green');
     });
 
     socket.on('killPurp', function () {
-        grid.kill('purp');
+        grid.killAndPlay('purp');
     });
 }
 
