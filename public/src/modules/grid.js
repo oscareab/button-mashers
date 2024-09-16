@@ -3,8 +3,8 @@ import { Player } from './player.js'
 
 export class Grid {
     constructor(width, height) {
-        this.rows = Math.floor(height / 50);;
-        this.cols = Math.floor(width / 50);;
+        this.rows = Math.floor(height / 50);
+        this.cols = Math.floor(width / 50);
         this.numSquares = this.rows * this.cols;
 
         this.colors = ['pink', 'blue', 'green', 'purp'];
@@ -12,12 +12,8 @@ export class Grid {
 
         this.player = new Player(this);
         
-        this.levels = [["pink"], ["pink"], ["pink", "green"], ["pink", "green"], ["pink"],];
+        this.levels = [["pink"], ["pink"], ["pink", "green"], ["pink", "green"], ["purp", "green"],];
         this.levelIndex = 0;
-    }
-
-    getMeter() {
-        return this.player.getLevel();
     }
 
     fillRandom() {
@@ -78,11 +74,13 @@ export class Grid {
 
                 switch(color) {
                     case 'pink':
-                        this.playSynth(index);
+                        this.player.playSynth(index);
                         break;
                     case 'green':
-                        this.playBeat();
+                        this.player.playBeat();
                         break;
+                    case 'purp':
+                        this.player.playBass();
                 }
             }
         }
@@ -108,14 +106,6 @@ export class Grid {
         }
 
         this.levelIndex++;
-    }
-
-    playSynth(index) {
-        this.player.playSynth(index);
-    }
-
-    playBeat() {
-        this.player.playBeat(); 
     }
 
     getTotalSquaresLeft() {

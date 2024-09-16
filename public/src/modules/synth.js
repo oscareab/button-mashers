@@ -4,13 +4,13 @@ export class Synth {
     constructor(grid) {
         this.grid = grid;
 
-        this.verb = new Tone.Reverb(0.25);
+        this.verb = new Tone.Reverb(0.25).toDestination();
 
         this.panner = new Tone.PanVol().connect(this.verb);
 
         this.synth = new Tone.Synth({
             oscillator: {
-                type: 'sine'
+                type: 'square'
             },
             envelope: {
                 attack: 0.005,
