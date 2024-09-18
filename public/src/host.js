@@ -54,7 +54,7 @@ $(function () {
 
     $("#startBtn").on('click', function () {
         $("#menuContainer").toggleClass("hidden");
-        $("#grid").toggleClass("hidden");
+        $("#gridContainer").toggleClass("hidden");
         clearInterval(startScreenColorChanger);
         init();
     });

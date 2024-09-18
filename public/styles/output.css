@@ -1400,6 +1400,10 @@ html {
   width: 98;
 }
 
+.w-\[98v\] {
+  width: 98v;
+}
+
 .basis-1\/2 {
   flex-basis: 50%;
 }
@@ -1414,6 +1418,10 @@ html {
 
 .items-start {
   align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
 }
 
 .items-center {
