@@ -17,9 +17,10 @@ export default {
     'w-[35px]',
     'w-[20px]',
     'h-[60px]',
-    'h-[50px]',
+    'h-[51px]',
     'h-[35px]',
     'h-[20px]',
+    'm-0',
   ],
   theme: {
     colors: {

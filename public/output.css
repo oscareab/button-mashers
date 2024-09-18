@@ -1244,6 +1244,10 @@ html {
   margin-inline-start: calc(var(--border-btn) * -1);
 }
 
+.m-0 {
+  margin: 0px;
+}
+
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -1280,6 +1284,10 @@ html {
   height: 50px;
 }
 
+.h-\[51px\] {
+  height: 51px;
+}
+
 .h-\[60px\] {
   height: 60px;
 }
@@ -1290,6 +1298,14 @@ html {
 
 .h-\[98vh\] {
   height: 98vh;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.h-\[50x\] {
+  height: 50x;
 }
 
 .w-1\/2 {
@@ -1312,8 +1328,16 @@ html {
   width: 50px;
 }
 
+.w-\[51px\] {
+  width: 51px;
+}
+
 .w-\[60px\] {
   width: 60px;
+}
+
+.w-\[98vh\] {
+  width: 98vh;
 }
 
 .w-screen {
@@ -1334,6 +1358,18 @@ html {
 
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+.content-center {
+  align-content: center;
+}
+
+.content-start {
+  align-content: flex-start;
+}
+
+.items-start {
+  align-items: flex-start;
 }
 
 .items-center {
@@ -1381,19 +1417,13 @@ html {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
-}
-
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .hover\:bg-\[\#d460b0\]:hover {

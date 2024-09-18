@@ -12,8 +12,9 @@ export class Grid {
 
         this.player = new Player(this);
         
-        this.levels = [["pink"], ["pink"], ["pink", "green"], ["pink", "green"], ["purp", "green"],];
+        this.levels = [[20000, "pink"], [20000, "pink", "green"], [20000, "purp"], [20000, "purp", 'green'], [20000, 'pink', 'green', 'purp']];
         this.levelIndex = 0;
+        this.changeLevels = false;
     }
 
     fillRandom() {
@@ -22,7 +23,7 @@ export class Grid {
             let color = this.colors[index]
             this.colorsLeft[index]++;
 
-            $("#grid").append(`<div class="bg-${color} btn hover:bg-${color} active:bg-white w-[50px] h-[50px]"></div>`)
+            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0"></div>`)
         }
     }
 
@@ -31,7 +32,7 @@ export class Grid {
             let index = this.colors.indexOf(color);
             this.colorsLeft[index]++;
 
-            $("#grid").append(`<div class="bg-${color} btn hover:bg-${color} active:bg-white w-[50px] h-[50px]"></div>`)
+            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0"></div>`)
         }
     }
 
@@ -41,19 +42,21 @@ export class Grid {
             let color = colors[index]
             this.colorsLeft[this.colors.indexOf(color)]++;
 
-            $("#grid").append(`<div class="bg-${color} btn hover:bg-${color} active:bg-white w-[50px] h-[50px]"></div>`)
+            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0"></div>`)
         }
     }
 
     killAndPlay(color) {
-
         if(this.colorsLeft.reduce((total, count) => total + count, 0) == 0) {
-            // this.nextLevel();
-            // console.log("next level");
-
-            $("#grid").empty();
-            this.fillRandom();
-            return;
+            if(this.changeLevels) {
+                this.changeLevels = false;
+                this.levelIndex++;
+                this.nextLevel();
+                return;
+            } else {
+                this.drawLevel();
+                return;
+            }
         }
 
         if (this.colorsLeft[this.colors.indexOf(color)] <= 0) {
@@ -67,7 +70,7 @@ export class Grid {
             let classes = button.attr('class').split(/\s+/);
 
             if (classes[0] == `bg-${color}`) {
-                button.attr('class', `btn bg-transparent border-0 hover:bg-transparent w-[50px] h-[50px]`)
+                button.attr('class', `w-[50px] h-[50px] killed`);
 
                 this.colorsLeft[this.colors.indexOf(color)]--;
                 killed = true;
@@ -80,7 +83,7 @@ export class Grid {
                         this.player.playBeat();
                         break;
                     case 'purp':
-                        this.player.playBass();
+                        this.player.playBass(index);
                 }
             }
         }
@@ -91,24 +94,35 @@ export class Grid {
     }
 
     nextLevel() {
-        $("#grid").empty();
-
         if(this.levelIndex > this.levels.length) {
             return;
         }
 
-        if(this.levels[this.levelIndex].length == 1) {
-            this.fillColor(this.levels[this.levelIndex][0]);
-        } else if(this.levels[this.levelIndex].length > 1 && this.levels[this.levelIndex].length < 4) {
-            this.fillRandomSelection(this.levels[this.levelIndex]);
+        this.playNextLevelSound();
+        this.drawLevel(this.levels[this.levelIndex]);
+
+        setTimeout(() => {
+            this.changeLevels = true;
+            console.log('changed to: ', this.changeLevels);
+        }, this.levels[this.levelIndex][0]);
+
+        this.playNextLevelSound();
+    }
+
+    drawLevel() {
+        $("#grid").empty();
+
+        if(this.levels[this.levelIndex].length == 2) {
+            this.fillColor(this.levels[this.levelIndex][1]);
+        } else if(this.levels[this.levelIndex].length > 2 && this.levels[this.levelIndex].length < 5) {
+            let currLevel = this.levels[this.levelIndex].slice(1);
+            this.fillRandomSelection(currLevel);
         } else {
             this.fillRandom();
         }
-
-        this.levelIndex++;
     }
 
-    getTotalSquaresLeft() {
-        return this.colorsLeft.reduce((total, count) => total + count, 0);
+    playNextLevelSound() { 
+        this.player.playNextLevelSound();
     }
 }

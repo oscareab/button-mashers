@@ -1,0 +1,15 @@
+.killed {
+    animation: killing 1s;
+    animation-fill-mode: forwards;
+
+}
+
+@keyframes killing {
+    0% {
+        background-color: white;
+    }
+    100% {
+        background-color: none;
+    }
+}
+

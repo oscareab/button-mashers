@@ -8,6 +8,14 @@ $(function () {
     initQR();
 
     $(document).keypress(function (e) {
+
+        if (e.which == 109) { // 'm' key
+            if (document.body.style.cursor === 'none') {
+                document.body.style.cursor = 'default'; // Show cursor
+            } else {
+                document.body.style.cursor = 'none'; // Hide cursor
+            }
+        }
         if (e.which == 109) {
             $('*').toggleClass('cursor-none');
         }
@@ -17,20 +25,14 @@ $(function () {
             grid.killAndPlay('purp')
         }
 
+        // debug ONLY l to kill
+        if (e.which == 108) {
+            grid.killAndPlay('pink');
+        }
+
         // debug ONLY s to test drums
         if (e.which == 115) {
             grid.killAndPlay('green');
-        }
-
-        // debug ONLY enter to start
-        if (e.which == 13) {
-            $("#menu").toggleClass("hidden");
-        $("#grid").toggleClass("hidden");
-        init();
-        }
-
-        if(e.which == 110) {
-            grid.nextLevel();
         }
     });
 
@@ -42,10 +44,27 @@ $(function () {
 })
 
 function init() {
-    let width = $("#grid").width();
-    let height = $("#grid").height();
+
+    let width = Math.floor($("#grid").width() / 50) * 50;
+    let height = Math.floor($("#grid").height() / 50) * 50;
+
+    $("#grid").width(width);
+    $("#grid").height(height);
 
     grid = new Grid(width, height);
+
+    // let timer = 0;
+    // setInterval(function () {
+    //     timer += 1000;
+    //     console.log(timer, grid.changeLevels);
+    // }, 1000);
+
+    // setInterval(function () {
+    //     let colors = grid.levels[grid.levelIndex].slice(1);
+    //     let color = colors[Math.floor(Math.random() * colors.length)];
+
+    //     grid.killAndPlay(color);
+    // }, 100)
 
     socket.on('killPink', function () {
         grid.killAndPlay('pink');
@@ -63,8 +82,8 @@ function init() {
         grid.killAndPlay('purp');
     });
 
-    grid.startLevels();
-    // grid.fillColor('purp');
+    // grid.startLevels();
+    grid.fillRandom();
 }
 
 function initQR() {

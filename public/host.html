@@ -9,19 +9,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link rel="icon" type="image/png" href="squares.png">
     <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="host.css">
     <script type="module" src="./src/host.js"></script>
     <title>Button Mashers</title>
 </head>
 
 <body>
 
-    <div class="flex justify-center">
+    <div class="flex justify-center items-center h-screen">
         <div id="menu" class="h-[98vh] w-1/2 flex flex-col flex-wrap justify-center items-center">
             <div id="qr" class="mt-1"></div>
             <button id="startBtn" class="btn bg-pink hover:bg-[#d460b0] text-black mt-4">Start!</button>
         </div>
+
+        <div id="grid" class="hidden h-screen w-screen flex flex-wrap justify-center"></div>
     </div>
-    <div id="grid" class="hidden h-[98vh] w-screen-[98vh] flex flex-wrap justify-center items-center"></div>
+    
 </body>
 
 </html>
