@@ -1,30 +1,25 @@
 import '/node_modules/tone/build/Tone.js';
 export class Bass {
     constructor() {
-        this.autoPan = new Tone.AutoPanner(3).toDestination().start();
-        this.verb = new Tone.Reverb(2).connect(this.autoPan);
-
-        this.bass = new Tone.MonoSynth({
+        this.volume = new Tone.Volume(1).toDestination();
+        this.delay = new Tone.FeedbackDelay("16n", 0.5).connect(this.volume);
+        this.panner = new Tone.PanVol().connect(this.delay);
+        this.bass = new Tone.Synth({
             oscillator: {
                 type: "sine"
             },
             envelope: {
-                attack: 0.01, 
-                decay: 0.01,
-                sustain: 1,
-                release: 0.5
-            }, 
-            filter: {
-                Q: 25,
-                type: "lowpass"
+                attack: 0.05,
+                decay: 0.1,
+                sustain: 0,
+                release: 1
             },
-        }).connect(this.verb);
+        }).connect(this.panner);
     }
 
-    play() {
-        let freq = Math.random() * (100) + 100;
-        console.log(freq);
-        this.bass.triggerAttackRelease(freq, "4n");
+    play(pitch, pan) {
+        this.panner.pan.value = pan;
+        this.bass.triggerAttackRelease(pitch, "4n");
     }
 
     connect(destination) {

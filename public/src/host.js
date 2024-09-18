@@ -3,49 +3,106 @@ import { Grid } from "./modules/grid.js";
 
 const socket = io();
 let grid;
+let startScreenColorChanger;
 
 $(function () {
-    initQR();
-
     $(document).keypress(function (e) {
+
+        // m to toggle cursor
         if (e.which == 109) {
-            $('*').toggleClass('cursor-none');
+            if (document.body.style.cursor === 'none') {
+                document.body.style.cursor = 'default';
+            } else {
+                document.body.style.cursor = 'none';
+            }
+        }
+
+        // f to toggle fullscreen
+        if (e.which == 102) {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+              } else if (document.exitFullscreen) {
+                document.exitFullscreen();
+              }
         }
 
         // debug ONLY k to kill
         if (e.which == 107) {
-            grid.killAndPlay('purp')
+            grid.killAndPlay('purp');
+        }
+
+        // debug ONLY l to kill
+        if (e.which == 108) {
+            grid.killAndPlay('pink');
         }
 
         // debug ONLY s to test drums
         if (e.which == 115) {
             grid.killAndPlay('green');
         }
+    });
 
-        // debug ONLY enter to start
-        if (e.which == 13) {
-            $("#menu").toggleClass("hidden");
-        $("#grid").toggleClass("hidden");
-        init();
-        }
+    $("#startText").on('animationend', function () {
+        animateStartScreen();
+    });
 
-        if(e.which == 110) {
-            grid.nextLevel();
-        }
+    $("#startScreen").on('click', function () {
+        initQR();
+        $("#menu").toggleClass("hidden");
+        $("#startScreen").toggleClass("hidden");
     });
 
     $("#startBtn").on('click', function () {
-        $("#menu").toggleClass("hidden");
+        $("#menuContainer").toggleClass("hidden");
         $("#grid").toggleClass("hidden");
+        clearInterval(startScreenColorChanger);
         init();
     });
 })
 
+function animateStartScreen() {
+    let colors = ['pink', 'blue', 'green', 'purp'];
+    let text = "Button Mashers"
+
+    $("#startText").html("");
+        for (const element of text) {
+            let index = Math.floor(Math.random() * colors.length);
+            let color = colors[index];
+            $("#startText").append(`<span class="text-${color}">${element}</span>`);
+        }
+    
+    startScreenColorChanger = setInterval(() => {
+        $("#startText").html("");
+        for (const element of text) {
+            let index = Math.floor(Math.random() * colors.length);
+            let color = colors[index];
+            $("#startText").append(`<span class="text-${color}">${element}</span>`);
+        }
+    }, 2000);
+}
+
 function init() {
-    let width = $("#grid").width();
-    let height = $("#grid").height();
+    console.log("init");
+    let width = Math.floor($("#grid").width() / 50) * 50;
+    let height = Math.floor($("#grid").height() / 50) * 50;
+
+    $("#grid").width(width);
+    $("#grid").height(height);
 
     grid = new Grid(width, height);
+
+    // let timer = 0;
+    // setInterval(function () {
+    //     timer += 1000;
+    //     console.log(timer, grid.changeLevels);
+    // }, 1000);
+
+    // setInterval(function () {
+    //     let colors = grid.levels[grid.levelIndex].slice(1);
+    //     let color = colors[Math.floor(Math.random() * colors.length)];
+
+    //     grid.killAndPlay(color);
+    // }, 100)
 
     socket.on('killPink', function () {
         grid.killAndPlay('pink');
@@ -64,7 +121,7 @@ function init() {
     });
 
     grid.startLevels();
-    // grid.fillColor('purp');
+    // grid.fillRandom();
 }
 
 function initQR() {
