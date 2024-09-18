@@ -1,0 +1,44 @@
+.killed {
+    animation: killing 0.5s;
+    animation-fill-mode: forwards;
+
+}
+
+.slide-down {
+    animation: slideDown 4s;
+    animation-fill-mode: forwards;
+    cursor: default;
+}
+
+.slide-up {
+    animation: slideUp 6s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes killing {
+    0% {
+        background-color: white;
+    }
+    100% {
+        background-color: none;
+    }
+}
+
+@keyframes slideDown {
+    0% {
+        transform: translateY(-200%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+    
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(200%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}

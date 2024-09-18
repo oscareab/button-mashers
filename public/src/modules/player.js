@@ -125,7 +125,7 @@ export class Player {
 
     playNextLevelSound() {
         const player = this.player;
-        player.load("src/cassette.mp3").then(() => {
+        player.load("assets/cassette.mp3").then(() => {
             player.start();
         })
     }

@@ -3,26 +3,32 @@ import { Grid } from "./modules/grid.js";
 
 const socket = io();
 let grid;
+let startScreenColorChanger;
 
 $(function () {
-    initQR();
-
     $(document).keypress(function (e) {
 
-        if (e.which == 109) { // 'm' key
+        // m to toggle cursor
+        if (e.which == 109) {
             if (document.body.style.cursor === 'none') {
-                document.body.style.cursor = 'default'; // Show cursor
+                document.body.style.cursor = 'default';
             } else {
-                document.body.style.cursor = 'none'; // Hide cursor
+                document.body.style.cursor = 'none';
             }
         }
-        if (e.which == 109) {
-            $('*').toggleClass('cursor-none');
+
+        // f to toggle fullscreen
+        if (e.which == 102) {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+              } else if (document.exitFullscreen) {
+                document.exitFullscreen();
+              }
         }
 
         // debug ONLY k to kill
         if (e.which == 107) {
-            grid.killAndPlay('purp')
+            grid.killAndPlay('purp');
         }
 
         // debug ONLY l to kill
@@ -36,15 +42,47 @@ $(function () {
         }
     });
 
-    $("#startBtn").on('click', function () {
+    $("#startText").on('animationend', function () {
+        animateStartScreen();
+    });
+
+    $("#startScreen").on('click', function () {
+        initQR();
         $("#menu").toggleClass("hidden");
+        $("#startScreen").toggleClass("hidden");
+    });
+
+    $("#startBtn").on('click', function () {
+        $("#menuContainer").toggleClass("hidden");
         $("#grid").toggleClass("hidden");
+        clearInterval(startScreenColorChanger);
         init();
     });
 })
 
-function init() {
+function animateStartScreen() {
+    let colors = ['pink', 'blue', 'green', 'purp'];
+    let text = "Button Mashers"
 
+    $("#startText").html("");
+        for (const element of text) {
+            let index = Math.floor(Math.random() * colors.length);
+            let color = colors[index];
+            $("#startText").append(`<span class="text-${color}">${element}</span>`);
+        }
+    
+    startScreenColorChanger = setInterval(() => {
+        $("#startText").html("");
+        for (const element of text) {
+            let index = Math.floor(Math.random() * colors.length);
+            let color = colors[index];
+            $("#startText").append(`<span class="text-${color}">${element}</span>`);
+        }
+    }, 2000);
+}
+
+function init() {
+    console.log("init");
     let width = Math.floor($("#grid").width() / 50) * 50;
     let height = Math.floor($("#grid").height() / 50) * 50;
 
@@ -82,8 +120,8 @@ function init() {
         grid.killAndPlay('purp');
     });
 
-    // grid.startLevels();
-    grid.fillRandom();
+    grid.startLevels();
+    // grid.fillRandom();
 }
 
 function initQR() {

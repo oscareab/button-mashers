@@ -23,7 +23,7 @@ export class Grid {
             let color = this.colors[index]
             this.colorsLeft[index]++;
 
-            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0"></div>`)
+            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0 border-black border-2"></div>`)
         }
     }
 
@@ -32,7 +32,7 @@ export class Grid {
             let index = this.colors.indexOf(color);
             this.colorsLeft[index]++;
 
-            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0"></div>`)
+            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0 border-black border-2"></div>`)
         }
     }
 
@@ -42,7 +42,7 @@ export class Grid {
             let color = colors[index]
             this.colorsLeft[this.colors.indexOf(color)]++;
 
-            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0"></div>`)
+            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0 border-black border-2"></div>`)
         }
     }
 
