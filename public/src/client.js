@@ -1,6 +1,8 @@
-import "../../../../../../../node_modules/jquery/dist/jquery.min.js"
+import { HealthManager } from "./modules/health.js";
+import "/node_modules/jquery/dist/jquery.min.js"
 
 const socket = io();
+const health = new HealthManager();
 
 $(function () {
     $('*').css('touch-action', 'manipulation');
@@ -16,19 +18,34 @@ $(function () {
         }, 200);
     });
 
-    $("#btn1").on('click', function () {
-        socket.emit('pinkPress');
+    $("#pinkBtn").on('click', function () {
+        handlePress('pink');
     });
 
-    $("#btn2").on('click', function () {
-        socket.emit('bluePress');
+    $("#blueBtn").on('click', function () {
+        handlePress('blue');
     });
 
-    $("#btn3").on('click', function () {
-        socket.emit('greenPress');
+    $("#greenBtn").on('click', function () {
+        handlePress('green');
     });
 
-    $("#btn4").on('click', function () {
-        socket.emit('purpPress');
+    $("#purpBtn").on('click', function () {
+        handlePress('purp');
     });
 })
+
+function handlePress(color) {
+    if(health.getHealth(color) > 1) {
+        health.decreaseHealth(color);
+        sendPress(color);
+    } else  if(health.getHealth(color) === 1) {
+        health.decreaseHealth(color);
+        sendPress(color);
+        health.refillHealth(color);
+    }
+}
+
+function sendPress(color) {
+    socket.emit(`${color}Press`);
+}
