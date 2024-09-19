@@ -5,14 +5,14 @@
 }
 
 .slide-down {
-    animation: slideDown 4s;
+    animation: slideDown 2s;
     animation-fill-mode: forwards;
-    cursor: default;
 }
 
-.slide-up {
-    animation: slideUp 6s;
+.fade-in {
+    animation: slideUp 1s;
     animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
 }
 
 @keyframes killing {
@@ -26,7 +26,7 @@
 
 @keyframes slideDown {
     0% {
-        transform: translateY(-200%);
+        transform: translateY(-400%);
     }
     100% {
         transform: translateY(0);
@@ -36,9 +36,9 @@
 
 @keyframes slideUp {
     0% {
-        transform: translateY(200%);
+        opacity: 0;
     }
     100% {
-        transform: translateY(0%);
+        opacity: 1;
     }
 }

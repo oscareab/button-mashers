@@ -16,20 +16,17 @@
 
 <body class="font-mono">
 
-    <div class="h-[98vh] w-[98v] justify-center items-center flex" id="menuContainer">
-        <div class="h-full w-full" id="startScreen">
-            <div class="h-full w-full flex justify-center items-center">
-                <div class="text-white text-9xl slide-down" id="startText">Button Mashers</div>
-            </div>
+    <div class="h-[98vh] w-[98vw] flex items-center justify-center" id="menuContainer">
+        <div class="h-full w-full flex flex-col items-center justify-center text-center" id="startScreen">
+            <div class="text-white text-9xl slide-down cursor-default" id="startText">Button Mashers</div>
+            <p class="text-white cursor-default opacity-0 text-base italic" id="continueText">Click to continue...</p>
         </div>
 
-        <div id="menu" class="h-full w-full hidden flex-wrap items-center justify-center">
-            <div class="flex justify-center">
-                <div id="qr"></div>
-            </div>
-            <div class="flex justify-center">
-                <button id="startBtn" class="btn bg-pink hover:bg-[#d460b0] text-black my-4 rounded-none">Start</button>
-            </div>
+
+        <div id="menu" class="h-full w-full flex flex-col items-center justify-center text-center hidden">
+            <div id="qr"></div>
+            <button id="startBtn" class="btn bg-pink hover:bg-[#d460b0] text-black my-4 rounded-none">Start</button>
+            <p class="text-white">Press <span class="italic">f</span> to toggle Fullscreen and <span class="italic">m</span> to toggle cursor</p>
         </div>
     </div>
     <div id="gridContainer" class="flex h-screen w-screen justify-center items-center hidden">

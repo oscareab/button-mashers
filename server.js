@@ -7,7 +7,9 @@ const app = express();
 const server = http.createServer(app);
 const io = new SocketIOServer(server);
 
-app.use(express.static('public'));
+app.use(express.static('public', {
+  extensions: ['html']
+}));
 app.use('/node_modules', express.static('node_modules'));
 
 io.on('connection', (socket) => {

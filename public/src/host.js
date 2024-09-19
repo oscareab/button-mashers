@@ -78,7 +78,9 @@ function animateStartScreen() {
             let color = colors[index];
             $("#startText").append(`<span class="text-${color}">${element}</span>`);
         }
-    }, 2000);
+    }, 500);
+
+    $("#continueText").toggleClass("opacity-0 fade-in");
 }
 
 function init() {
