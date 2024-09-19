@@ -1295,6 +1295,12 @@ html {
       var(--handleoffsetcalculator) 0 0 3px var(--fallback-bc,oklch(var(--bc)/1)) inset;
 }
 
+.no-animation {
+  --btn-focus-scale: 1;
+  --animation-btn: 0;
+  --animation-input: 0;
+}
+
 .btm-nav-xs > *:where(.active) {
   border-top-width: 1px;
 }
@@ -1345,12 +1351,8 @@ html {
   display: none;
 }
 
-.h-1\/2 {
-  height: 50%;
-}
-
-.h-8 {
-  height: 2rem;
+.h-4 {
+  height: 1rem;
 }
 
 .h-\[50px\] {
@@ -1373,12 +1375,8 @@ html {
   height: 100vh;
 }
 
-.w-11\/12 {
-  width: 91.666667%;
-}
-
-.w-12 {
-  width: 3rem;
+.w-4 {
+  width: 1rem;
 }
 
 .w-\[50px\] {
@@ -1401,6 +1399,14 @@ html {
   flex-basis: 50%;
 }
 
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-rows-2 {
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+}
+
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -1411,6 +1417,10 @@ html {
 
 .justify-center {
   justify-content: center;
+}
+
+.rounded-full {
+  border-radius: 9999px;
 }
 
 .rounded-none {

@@ -25,6 +25,7 @@ export default {
     'text-green',
     'text-blue',
     'text-purp',
+    'btn-disabled'
   ],
   theme: {
     colors: {
