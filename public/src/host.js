@@ -99,12 +99,12 @@ function init() {
     //     grid.killAndPlay(color);
     // }, 100)
 
-    setInterval(function () {
-        let colors = grid.colors;
-        let color = colors[Math.floor(Math.random() * colors.length)];
+    // setInterval(function () {
+    //     let colors = grid.colors;
+    //     let color = colors[Math.floor(Math.random() * colors.length)];
 
-        grid.killAndPlay(color);
-    }, 100)
+    //     grid.killAndPlay(color);
+    // }, 100)
 
     socket.on('killPink', function () {
         grid.killAndPlay('pink');
