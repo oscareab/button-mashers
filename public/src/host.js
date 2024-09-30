@@ -122,8 +122,7 @@ function init() {
         grid.killAndPlay('purp');
     });
 
-    // grid.startLevels();
-    grid.fillRandomSelection(['purp', 'blue']);
+    grid.startLevels();
     // grid.fillColor('purp');
 }
 
