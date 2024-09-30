@@ -28,7 +28,7 @@ $(function () {
 
         // debug ONLY k to kill
         if (e.which == 107) {
-            grid.killAndPlay('purp');
+            grid.killAndPlay('blue');
         }
 
         // debug ONLY l to kill
@@ -84,7 +84,6 @@ function animateStartScreen() {
 }
 
 function init() {
-    console.log("init");
     let width = Math.floor($("#grid").width() / 50) * 50;
     let height = Math.floor($("#grid").height() / 50) * 50;
 
@@ -93,18 +92,19 @@ function init() {
 
     grid = new Grid(width, height);
 
-    // let timer = 0;
-    // setInterval(function () {
-    //     timer += 1000;
-    //     console.log(timer, grid.changeLevels);
-    // }, 1000);
-
     // setInterval(function () {
     //     let colors = grid.levels[grid.levelIndex].slice(1);
     //     let color = colors[Math.floor(Math.random() * colors.length)];
 
     //     grid.killAndPlay(color);
     // }, 100)
+
+    setInterval(function () {
+        let colors = grid.colors;
+        let color = colors[Math.floor(Math.random() * colors.length)];
+
+        grid.killAndPlay(color);
+    }, 100)
 
     socket.on('killPink', function () {
         grid.killAndPlay('pink');
@@ -122,8 +122,9 @@ function init() {
         grid.killAndPlay('purp');
     });
 
-    grid.startLevels();
-    // grid.fillRandom();
+    // grid.startLevels();
+    grid.fillRandomSelection(['purp', 'blue']);
+    // grid.fillColor('purp');
 }
 
 function initQR() {

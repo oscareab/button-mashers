@@ -11,8 +11,22 @@ export class Grid {
         this.colorsLeft = [0, 0, 0, 0];
 
         this.player = new Player(this);
-        
-        this.levels = [[20000, "pink"], [20000, "pink", "green"], [20000, "purp"], [20000, "purp", 'green'], [20000, 'pink', 'green', 'purp']];
+
+        this.levels = [
+            [30000, "pink"], 
+            [30000, "pink", "green"], 
+            [30000, "purp"], 
+            [30000, "purp", 'green'], 
+            [30000, 'pink', 'green', 'purp'], 
+            [30000, 'blue'], 
+            [30000, 'blue', 'purp'], 
+            [30000, 'blue', 'pink', 'purp'],
+            [20000, 'green']
+            [40000, 'blue', 'pink', 'purp', 'green']
+            [20000, 'pink', 'purp', 'green']
+            [20000, 'pink', 'green']
+            [20000, 'pink']
+        ];
         this.levelIndex = 0;
         this.changeLevels = false;
     }
@@ -47,8 +61,8 @@ export class Grid {
     }
 
     killAndPlay(color) {
-        if(this.colorsLeft.reduce((total, count) => total + count, 0) == 0) {
-            if(this.changeLevels) {
+        if (this.colorsLeft.reduce((total, count) => total + count, 0) == 0) {
+            if (this.changeLevels) {
                 this.changeLevels = false;
                 this.levelIndex++;
                 this.nextLevel();
@@ -75,7 +89,7 @@ export class Grid {
                 this.colorsLeft[this.colors.indexOf(color)]--;
                 killed = true;
 
-                switch(color) {
+                switch (color) {
                     case 'pink':
                         this.player.playSynth(index);
                         break;
@@ -84,6 +98,10 @@ export class Grid {
                         break;
                     case 'purp':
                         this.player.playBass(index);
+                        break;
+                    case 'blue':
+                        this.player.playTwinkle();
+                        break;
                 }
             }
         }
@@ -94,7 +112,7 @@ export class Grid {
     }
 
     nextLevel() {
-        if(this.levelIndex > this.levels.length) {
+        if (this.levelIndex > this.levels.length) {
             return;
         }
 
@@ -112,9 +130,9 @@ export class Grid {
     drawLevel() {
         $("#grid").empty();
 
-        if(this.levels[this.levelIndex].length == 2) {
+        if (this.levels[this.levelIndex].length == 2) {
             this.fillColor(this.levels[this.levelIndex][1]);
-        } else if(this.levels[this.levelIndex].length > 2 && this.levels[this.levelIndex].length < 5) {
+        } else if (this.levels[this.levelIndex].length > 2 && this.levels[this.levelIndex].length < 5) {
             let currLevel = this.levels[this.levelIndex].slice(1);
             this.fillRandomSelection(currLevel);
         } else {
@@ -122,7 +140,7 @@ export class Grid {
         }
     }
 
-    playNextLevelSound() { 
+    playNextLevelSound() {
         this.player.playNextLevelSound();
     }
 }

@@ -14,6 +14,11 @@ export class Bass {
                 sustain: 0,
                 release: 1
             },
+            filter: {
+                Q: 2,
+                type: "lowpass",
+                frequency: 2000,
+            },
         }).connect(this.panner);
     }
 

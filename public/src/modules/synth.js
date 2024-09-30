@@ -4,20 +4,20 @@ export class Synth {
     constructor(grid) {
         this.grid = grid;
 
-        this.verb = new Tone.Reverb(0.25).toDestination();
-
-        this.panner = new Tone.PanVol().connect(this.verb);
-
+        // this.verb = new Tone.Reverb(0.25).toDestination();
+        this.dist = new Tone.BitCrusher(4).toDestination();
+        this.panner = new Tone.PanVol().connect(this.dist);
         this.synth = new Tone.Synth({
             oscillator: {
-                type: 'square'
+                type: 'sawtooth'
             },
             envelope: {
                 attack: 0.005,
                 decay: 0.6,
                 sustain: 0.01,
                 release: 1.4,
-            }
+            }, 
+            
             
         }).connect(this.panner);
     }

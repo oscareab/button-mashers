@@ -5,6 +5,7 @@ import { KickDrum } from './kick.js';
 import { HighHat } from './highhat.js';
 import { Snare } from './snare.js';
 import { Bass } from './bass.js';
+import { Twinkle } from './twinkle.js';
 
 export class Player {
     constructor(grid) {
@@ -13,6 +14,7 @@ export class Player {
         this.hats = new HighHat();
         this.snare = new Snare();
         this.bass = new Bass();
+        this.twinkle = new Twinkle();
         this.player = new Tone.Player().toDestination();
 
         this.beat = [
@@ -120,7 +122,12 @@ export class Player {
             octave += 2;
         }
 
+        
         this.bass.play(pitch + octave, pan);
+    }
+
+    playTwinkle() {
+        this.twinkle.play();
     }
 
     playNextLevelSound() {
