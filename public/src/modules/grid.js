@@ -21,11 +21,11 @@ export class Grid {
             [30000, 'blue'], 
             [30000, 'blue', 'purp'], 
             [30000, 'blue', 'pink', 'purp'],
-            [20000, 'green']
-            [40000, 'blue', 'pink', 'purp', 'green']
-            [20000, 'pink', 'purp', 'green']
-            [20000, 'pink', 'green']
-            [20000, 'pink']
+            [20000, 'green'],
+            [40000, 'blue', 'pink', 'purp', 'green'],
+            [20000, 'pink', 'purp', 'green'],
+            [20000, 'pink', 'green'],
+            [20000, 'pink'],
         ];
         this.levelIndex = 0;
         this.changeLevels = false;
