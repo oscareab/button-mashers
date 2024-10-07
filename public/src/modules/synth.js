@@ -3,9 +3,7 @@ import '/node_modules/tone/build/Tone.js';
 export class Synth {
     constructor(grid) {
         this.grid = grid;
-
-        // this.verb = new Tone.Reverb(0.25).toDestination();
-        this.dist = new Tone.BitCrusher(4).toDestination();
+        this.dist = new Tone.BitCrusher(10).toDestination();
         this.panner = new Tone.PanVol().connect(this.dist);
         this.synth = new Tone.Synth({
             oscillator: {

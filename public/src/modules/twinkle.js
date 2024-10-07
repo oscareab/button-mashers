@@ -28,7 +28,7 @@ export class Twinkle {
 
         this.synth.chain(this.reverb, this.delay);
 
-        this.pitches = ['A5', 'E6', 'G6', 'F#6', 'A6']
+        this.pitches = ['A5', 'C#6','E6', 'G6', 'F#6', 'A6']
     }
 
     play() {

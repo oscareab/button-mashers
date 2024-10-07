@@ -28,17 +28,23 @@ $(function () {
 
         // debug ONLY k to kill
         if (e.which == 107) {
-            grid.killAndPlay('blue');
+            grid.drawLevel();
+            grid.fillColor('pink');
         }
 
         // debug ONLY l to kill
         if (e.which == 108) {
-            grid.killAndPlay('pink');
+            grid.killAndPlay('purp');
         }
 
         // debug ONLY s to test drums
         if (e.which == 115) {
             grid.killAndPlay('green');
+        }
+
+        // debug ONLY s to test drums
+        if (e.which == 98) {
+            grid.killAndPlay('blue');
         }
     });
 
@@ -104,7 +110,7 @@ function init() {
     //     let color = colors[Math.floor(Math.random() * colors.length)];
 
     //     grid.killAndPlay(color);
-    // }, 100)
+    // }, 50)
 
     socket.on('killPink', function () {
         grid.killAndPlay('pink');
@@ -123,7 +129,7 @@ function init() {
     });
 
     grid.startLevels();
-    // grid.fillColor('purp');
+    // grid.fillRandom();
 }
 
 function initQR() {

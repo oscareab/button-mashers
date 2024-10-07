@@ -1,34 +1,42 @@
 import "../../../node_modules/jquery/dist/jquery.min.js"
 import { Player } from './player.js'
+import  Levels  from './levels.js'
 
 export class Grid {
     constructor(width, height) {
-        this.rows = Math.floor(height / 50);
-        this.cols = Math.floor(width / 50);
+        this.width = width;
+        this.height = height;
+        this.rows = Math.floor(this.height / 50);
+        this.cols = Math.floor(this.width / 50);
         this.numSquares = this.rows * this.cols;
 
         this.colors = ['pink', 'blue', 'green', 'purp'];
         this.colorsLeft = [0, 0, 0, 0];
+        this.levels = Levels;
 
         this.player = new Player(this);
-
-        this.levels = [
-            [30000, "pink"], 
-            [30000, "pink", "green"], 
-            [30000, "purp"], 
-            [30000, "purp", 'green'], 
-            [30000, 'pink', 'green', 'purp'], 
-            [30000, 'blue'], 
-            [30000, 'blue', 'purp'], 
-            [30000, 'blue', 'pink', 'purp'],
-            [20000, 'green'],
-            [40000, 'blue', 'pink', 'purp', 'green'],
-            [20000, 'pink', 'purp', 'green'],
-            [20000, 'pink', 'green'],
-            [20000, 'pink'],
-        ];
         this.levelIndex = 0;
         this.changeLevels = false;
+    }
+
+    halveWidth() {
+        this.width = this.width / 2;
+        $('#grid').width(this.width); 
+
+        this.cols = Math.floor(this.width / 50);
+        this.numSquares = this.rows * this.cols;
+
+        $("#grid").empty();
+    }
+
+    halveHeight() {
+        this.height = this.height / 2;
+        $('#grid').height(this.height); 
+
+        this.rows = Math.floor(this.height / 50);
+        this.numSquares = this.rows * this.cols;
+        
+        $("#grid").empty();
     }
 
     fillRandom() {
@@ -37,7 +45,7 @@ export class Grid {
             let color = this.colors[index]
             this.colorsLeft[index]++;
 
-            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0 border-black border-2"></div>`)
+            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0 border-black border-2"></div>`);
         }
     }
 
@@ -46,7 +54,7 @@ export class Grid {
             let index = this.colors.indexOf(color);
             this.colorsLeft[index]++;
 
-            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0 border-black border-2"></div>`)
+            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0 border-black border-2"></div>`);
         }
     }
 
@@ -56,7 +64,7 @@ export class Grid {
             let color = colors[index]
             this.colorsLeft[this.colors.indexOf(color)]++;
 
-            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0 border-black border-2"></div>`)
+            $("#grid").append(`<div class="bg-${color} w-[50px] h-[50px] m-0 border-black border-2"></div>`);
         }
     }
 
@@ -112,7 +120,7 @@ export class Grid {
     }
 
     nextLevel() {
-        if (this.levelIndex > this.levels.length) {
+        if (this.levelIndex > this.levels.length - 1) {
             return;
         }
 
@@ -121,8 +129,7 @@ export class Grid {
 
         setTimeout(() => {
             this.changeLevels = true;
-            console.log('changed to: ', this.changeLevels);
-        }, this.levels[this.levelIndex][0]);
+        }, this.levels[this.levelIndex].time);
 
         this.playNextLevelSound();
     }
@@ -130,11 +137,22 @@ export class Grid {
     drawLevel() {
         $("#grid").empty();
 
-        if (this.levels[this.levelIndex].length == 2) {
-            this.fillColor(this.levels[this.levelIndex][1]);
-        } else if (this.levels[this.levelIndex].length > 2 && this.levels[this.levelIndex].length < 5) {
-            let currLevel = this.levels[this.levelIndex].slice(1);
-            this.fillRandomSelection(currLevel);
+        let level = this.levels[this.levelIndex];
+        let colors = level.colors;
+        let sizeChange = level.sizeChange;
+ 
+        if(sizeChange) {
+            if(sizeChange == 'halveWidth') {
+                this.halveWidth();
+            } else {
+                this.halveHeight();
+            }
+        }
+
+        if(colors.length == 1) {
+            this.fillColor(level.colors[0]);
+        } else if (colors.length < 4) {
+            this.fillRandomSelection(colors);
         } else {
             this.fillRandom();
         }
