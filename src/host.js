@@ -1,4 +1,4 @@
-import "../../../../../../../node_modules/jquery/dist/jquery.min.js"
+import "/node_modules/jquery/dist/jquery.js";
 import { Grid } from "./modules/grid.js";
 
 const socket = io();
@@ -21,9 +21,9 @@ $(function () {
         if (e.which == 102) {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen();
-              } else if (document.exitFullscreen) {
+            } else if (document.exitFullscreen) {
                 document.exitFullscreen();
-              }
+            }
         }
 
         // debug ONLY k to kill
@@ -71,12 +71,12 @@ function animateStartScreen() {
     let text = "Button Mashers"
 
     $("#startText").html("");
-        for (const element of text) {
-            let index = Math.floor(Math.random() * colors.length);
-            let color = colors[index];
-            $("#startText").append(`<span class="text-${color}">${element}</span>`);
-        }
-    
+    for (const element of text) {
+        let index = Math.floor(Math.random() * colors.length);
+        let color = colors[index];
+        $("#startText").append(`<span class="text-${color}">${element}</span>`);
+    }
+
     startScreenColorChanger = setInterval(() => {
         $("#startText").html("");
         for (const element of text) {

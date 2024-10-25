@@ -36,13 +36,9 @@ $(function () {
 })
 
 function handlePress(color) {
-    if(health.getHealth(color) > 1) {
-        health.decreaseHealth(color);
+    if(health.getHealth(color) > 0) {
         sendPress(color);
-    } else  if(health.getHealth(color) === 1) {
         health.decreaseHealth(color);
-        sendPress(color);
-        health.refillHealth(color);
     }
 }
 

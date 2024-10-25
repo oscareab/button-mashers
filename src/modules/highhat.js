@@ -1,4 +1,5 @@
 import '/node_modules/tone/build/Tone.js';
+
 export class HighHat {
     constructor() {
         this.hatDist = new Tone.BitCrusher(13).toDestination();

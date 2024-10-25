@@ -1,5 +1,5 @@
 
-import express from 'express'
+import express from 'express';
 import http from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 
@@ -7,9 +7,8 @@ const app = express();
 const server = http.createServer(app);
 const io = new SocketIOServer(server);
 
-app.use(express.static('public', {
-  extensions: ['html']
-}));
+app.use(express.static('public')); // Serve static files from public
+app.use('/src', express.static('src')); // Serve src directory
 app.use('/node_modules', express.static('node_modules'));
 
 io.on('connection', (socket) => {

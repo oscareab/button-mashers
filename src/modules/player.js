@@ -1,4 +1,4 @@
-import '../../../node_modules/tone/build/Tone.js';
+import '/node_modules/tone/build/Tone.js';
 
 import { Synth } from './synth.js';
 import { KickDrum } from './kick.js';

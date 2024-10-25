@@ -1,6 +1,7 @@
-import "../../../node_modules/jquery/dist/jquery.min.js"
+import "/node_modules/jquery/dist/jquery.js";
+
 import { Player } from './player.js'
-import  Levels  from './levels.js'
+import  { Levels }  from './levels.js'
 
 export class Grid {
     constructor(width, height) {
