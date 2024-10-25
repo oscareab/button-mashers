@@ -134,7 +134,7 @@ function init() {
 
 function initQR() {
     let url = window.location.href;
-    url = url + '/client.html';
+    url = url + 'client.html';
 
     let qrcode = new QRCode('qr', {
         text: url,
