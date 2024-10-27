@@ -25,7 +25,8 @@ export default {
     'text-green',
     'text-blue',
     'text-purp',
-    'btn-disabled'
+    'btn-disabled',
+    'no-animation',
   ],
   theme: {
     colors: {

@@ -974,12 +974,6 @@ html {
     var(--togglehandleborder);
 }
 
-.btm-nav > *:where(.active) {
-  border-top-width: 2px;
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .btn {
     animation: button-pop var(--animation-btn, 0.25s) ease-out;
@@ -1218,20 +1212,6 @@ html {
   }
 }
 
-.table tr.active,
-  .table tr.active:nth-child(even),
-  .table-zebra tbody tr:nth-child(even) {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity)));
-}
-
-.table-zebra tr.active,
-    .table-zebra tr.active:nth-child(even),
-    .table-zebra-zebra tbody tr:nth-child(even) {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-b3,oklch(var(--b3)/var(--tw-bg-opacity)));
-}
-
 @keyframes toast-pop {
   0% {
     transform: scale(0.9);
@@ -1301,22 +1281,6 @@ html {
   --animation-input: 0;
 }
 
-.btm-nav-xs > *:where(.active) {
-  border-top-width: 1px;
-}
-
-.btm-nav-sm > *:where(.active) {
-  border-top-width: 2px;
-}
-
-.btm-nav-md > *:where(.active) {
-  border-top-width: 2px;
-}
-
-.btm-nav-lg > *:where(.active) {
-  border-top-width: 4px;
-}
-
 .join.join-vertical > :where(*:not(:first-child)):is(.btn) {
   margin-top: calc(var(--border-btn) * -1);
 }
@@ -1327,11 +1291,6 @@ html {
 
 .m-0 {
   margin: 0px;
-}
-
-.mx-3 {
-  margin-left: 0.75rem;
-  margin-right: 0.75rem;
 }
 
 .my-4 {
@@ -1349,10 +1308,6 @@ html {
 
 .hidden {
   display: none;
-}
-
-.h-4 {
-  height: 1rem;
 }
 
 .h-\[50px\] {
@@ -1375,10 +1330,6 @@ html {
   height: 100vh;
 }
 
-.w-4 {
-  width: 1rem;
-}
-
 .w-\[50px\] {
   width: 50px;
 }
@@ -1393,10 +1344,6 @@ html {
 
 .w-screen {
   width: 100vw;
-}
-
-.basis-1\/2 {
-  flex-basis: 50%;
 }
 
 .cursor-default {
@@ -1425,10 +1372,6 @@ html {
 
 .justify-center {
   justify-content: center;
-}
-
-.rounded-full {
-  border-radius: 9999px;
 }
 
 .rounded-none {
@@ -1543,10 +1486,6 @@ html {
 
 .opacity-0 {
   opacity: 0;
-}
-
-.filter {
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .hover\:bg-\[\#d460b0\]:hover {

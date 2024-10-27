@@ -4,7 +4,7 @@ export class Twinkle {
     constructor() {
         this.synth = new Tone.Synth({
             oscillator: {
-                type: 'triangle',
+                type: 'sine',
             },
             envelope: {
                 attack: 0.05,

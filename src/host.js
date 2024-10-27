@@ -25,27 +25,6 @@ $(function () {
                 document.exitFullscreen();
             }
         }
-
-        // debug ONLY k to kill
-        if (e.which == 107) {
-            grid.drawLevel();
-            grid.fillColor('pink');
-        }
-
-        // debug ONLY l to kill
-        if (e.which == 108) {
-            grid.killAndPlay('purp');
-        }
-
-        // debug ONLY s to test drums
-        if (e.which == 115) {
-            grid.killAndPlay('green');
-        }
-
-        // debug ONLY s to test drums
-        if (e.which == 98) {
-            grid.killAndPlay('blue');
-        }
     });
 
     $("#startText").on('animationend', function () {
@@ -98,20 +77,6 @@ function init() {
 
     grid = new Grid(width, height);
 
-    // setInterval(function () {
-    //     let colors = grid.levels[grid.levelIndex].slice(1);
-    //     let color = colors[Math.floor(Math.random() * colors.length)];
-
-    //     grid.killAndPlay(color);
-    // }, 100)
-
-    // setInterval(function () {
-    //     let colors = grid.colors;
-    //     let color = colors[Math.floor(Math.random() * colors.length)];
-
-    //     grid.killAndPlay(color);
-    // }, 50)
-
     socket.on('killPink', function () {
         grid.killAndPlay('pink');
     });
@@ -128,14 +93,12 @@ function init() {
         grid.killAndPlay('purp');
     });
 
-    grid.startLevels();
-    // grid.fillRandom();
+    // grid.startLevels();
+    grid.fillRandom();
 }
 
 function initQR() {
-    let url = window.location.href;
-    url = url + 'client.html';
-
+    let url = 'https://button-mashers.oscaravila.me/client.html';
     let qrcode = new QRCode('qr', {
         text: url,
         width: 512,

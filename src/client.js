@@ -36,12 +36,12 @@ $(function () {
 })
 
 function handlePress(color) {
-    if(health.getHealth(color) > 0) {
+    if(!health.cooling.has(color)) {
         sendPress(color);
-        health.decreaseHealth(color);
     }
 }
 
 function sendPress(color) {
+    health.decreaseHealth(color);
     socket.emit(`${color}Press`);
 }

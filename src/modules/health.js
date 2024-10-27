@@ -1,63 +1,65 @@
-import "/node_modules/jquery/dist/jquery.min.js"
+import '/node_modules/jquery/dist/jquery.min.js';
 
 export class HealthManager {
     constructor() {
-        this.pink = 100;
-        this.blue = 100;
-        this.green = 100;
-        this.purp = 100;
+        this.health = { pink: 100, blue: 100, green: 100, purp: 100 };
+        this.cooling = new Set();
 
         setInterval(() => {
             this.refillHealth();
-            this.drawHealth('pink');
-        }, 200);
+            this.drawAllHealth();
+        }, 500);
     }
 
     getHealth(color) {
-        return this[color];
+        return this.health[color];
     }
 
     decreaseHealth(color) {
-        if (this[color] >= 10) {
-            this[color] -= 10;
-        } else {
-            this[color] = 0;
+        this.health[color] -= 5;
+        if (this.health[color] <= 0) {
+            this.coolDown(color);
         }
         this.drawHealth(color);
     }
 
+    coolDown(color) {
+        this.cooling.add(color);
+        const button = $(`#${color}Btn`);
+        const originalClasses = button.attr('class');
+
+        button.attr('class', `btn no-animation rounded-none cursor-default bg-dark${color} basis-1/2 hover:bg-dark${color} h-full w-full`);
+
+        const intervalId = setInterval(() => {
+            if (this.health[color] < 100) {
+                this.health[color] += 20;
+            } else {
+                clearInterval(intervalId);
+                button.attr('class', originalClasses);
+                this.cooling.delete(color);
+            }
+            this.drawHealth(color);
+        }, 500);
+    }
+
     refillHealth() {
-        for (const color of ['pink', 'blue', 'green', 'purp']) {
-            if (this[color] < 100) {
-                this[color] += 10;
+        for (const color of Object.keys(this.health)) {
+            if (this.health[color] < 100 && !this.cooling.has(color)) {
+                this.health[color] = Math.min(this.health[color] + 10, 100);
                 this.drawHealth(color);
             }
         }
     }
 
-    // refillHealth(color) {
-    //     const button = $(`#${color}Btn`);
-    //     let classes = button.attr('class');
-    //     button.attr('class', `btn no-animation rounded-none bg-dark${color} basis-1/2 hover:bg-dark${color} h-full w-full`);
+    drawHealth(color) {
+        $(`#${color}Health`).html(
+            `<div class='bg-white ' style='width: ${this.health[color]}%; height: 10px; border-radius: 5px;'></div>`
+        );
+    }
 
-    //     let count = 0;
-    //     const intervalId = setInterval(() => {
-    //         if (count < 3) {
-    //             $(`#${color}Health`).append('<div class="bg-white w-4 h-4 mx-3 rounded-full"></div>');
-    //             count++;
-    //         } else {
-    //             clearInterval(intervalId);
-    //             this[color] = 3;
-    //             this.drawHealth(color);
-    //             button.attr('class', classes);
-    //         }
-    //     }, 1000);
-    // }
-
-    drawHealth() {
-        for (const color of ['pink', 'blue', 'green', 'purp']) {
-            $(`#${color}Health`).empty();
-            $(`#${color}Health`).html(`${this[color]}`);
+    drawAllHealth() {
+        for (const color of Object.keys(this.health)) {
+            this.drawHealth(color);
         }
     }
 }

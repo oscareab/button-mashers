@@ -3,11 +3,11 @@ import '/node_modules/tone/build/Tone.js';
 export class Synth {
     constructor(grid) {
         this.grid = grid;
-        this.dist = new Tone.BitCrusher(10).toDestination();
-        this.panner = new Tone.PanVol().connect(this.dist);
+        const dist = new Tone.Distortion(0.8).toDestination();
+        this.panner = new Tone.PanVol().connect(dist);   
         this.synth = new Tone.Synth({
             oscillator: {
-                type: 'sawtooth'
+                type: 'triangle'
             },
             envelope: {
                 attack: 0.005,
