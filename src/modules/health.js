@@ -8,7 +8,7 @@ export class HealthManager {
         setInterval(() => {
             this.refillHealth();
             this.drawAllHealth();
-        }, 500);
+        }, 700);
     }
 
     getHealth(color) {
