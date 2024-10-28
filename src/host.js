@@ -93,8 +93,7 @@ function init() {
         grid.killAndPlay('purp');
     });
 
-    // grid.startLevels();
-    grid.fillRandom();
+    grid.startLevels();
 }
 
 function initQR() {
