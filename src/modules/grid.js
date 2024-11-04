@@ -152,7 +152,7 @@ export class Grid {
             let index = Math.floor(Math.random() * this.colors.length);
             let color = this.colors[index]
             this.colorsLeft[this.colors.indexOf(color)]++;
-            $('#grid').append(`<div class="${color} w-[50px] h-[50px]">${i}</div>`);
+            $('#grid').append(`<div class="${color} w-[50px] h-[50px]"></div>`);
         }
     }
 
