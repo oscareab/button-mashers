@@ -94,6 +94,13 @@ function init() {
     });
 
     grid.startLevels();
+
+    // setInterval(() => {
+    //     let colors = grid.levels[grid.levelIndex].colors;
+    //     let color = colors[Math.floor(Math.random() * colors.length)];
+
+    //     grid.killAndPlay(color);
+    // }, 50);
 }
 
 function initQR() {

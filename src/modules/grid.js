@@ -1,7 +1,7 @@
 import "/node_modules/jquery/dist/jquery.js";
 
 import { Player } from './player.js'
-import  { Levels }  from './levels.js'
+import { Levels } from './levels.js'
 
 export class Grid {
     constructor(width, height) {
@@ -22,7 +22,7 @@ export class Grid {
 
     halveWidth() {
         this.width = this.width / 2;
-        $('#grid').width(this.width); 
+        $('#grid').width(this.width);
 
         this.cols = Math.floor(this.width / 50);
         this.numSquares = this.rows * this.cols;
@@ -32,11 +32,11 @@ export class Grid {
 
     halveHeight() {
         this.height = this.height / 2;
-        $('#grid').height(this.height); 
+        $('#grid').height(this.height);
 
         this.rows = Math.floor(this.height / 50);
         this.numSquares = this.rows * this.cols;
-        
+
         $("#grid").empty();
     }
 
@@ -86,6 +86,15 @@ export class Grid {
             return;
         }
 
+        if (this.levels[this.levelIndex].reverse) {
+            this.killReverse(color);
+            return;
+        }
+
+        this.kill(color);
+    }
+
+    kill(color) {
         let killed = false;
         while (!killed) {
             let index = Math.floor(Math.random() * this.numSquares);
@@ -98,21 +107,63 @@ export class Grid {
                 this.colorsLeft[this.colors.indexOf(color)]--;
                 killed = true;
 
-                switch (color) {
-                    case 'pink':
-                        this.player.playSynth(index);
-                        break;
-                    case 'green':
-                        this.player.playBeat();
-                        break;
-                    case 'purp':
-                        this.player.playBass(index);
-                        break;
-                    case 'blue':
-                        this.player.playTwinkle();
-                        break;
-                }
+                this.play(color, index);
             }
+        }
+    }
+
+    killReverse(color) {
+        let killed = false;
+        while (!killed) {
+            let index = Math.floor(Math.random() * this.numSquares);
+            const button = $('#grid').children().eq(index - 1);
+            let classes = button.attr('class').split(/\s+/);
+
+            if (classes[0] == color) {
+                button.replaceWith(`<div class="bg-${color} w-[50px] h-[50px] m-0 border-black border-2 killed"></div>`);
+
+                this.colorsLeft[this.colors.indexOf(color)]--;
+                killed = true;
+
+                this.play(color, index);
+            }
+        }
+    }
+
+    play(color, index) {
+        switch (color) {
+            case 'pink':
+                this.player.playSynth(index);
+                break;
+            case 'green':
+                this.player.playPerc();
+                break;
+            case 'purp':
+                this.player.playBass(index);
+                break;
+            case 'blue':
+                this.player.playTwinkle();
+                break;
+        }
+    }
+
+    reverseLevel() {
+        for (let i = 0; i < this.numSquares; i++) {
+            let index = Math.floor(Math.random() * this.colors.length);
+            let color = this.colors[index]
+            this.colorsLeft[this.colors.indexOf(color)]++;
+            $('#grid').append(`<div class="${color} w-[50px] h-[50px]">${i}</div>`);
+        }
+    }
+
+    afterReverseLevel() {
+        let children = $("#grid").children()
+
+        for (const child of children) {
+            let classes = $(child).attr('class').split(/\s+/);
+            let color = classes[0].substring(3);
+            console.log(color);
+            this.colorsLeft[this.colors.indexOf(color)]++;
         }
     }
 
@@ -125,41 +176,47 @@ export class Grid {
             return;
         }
 
-        this.playNextLevelSound();
-        this.drawLevel(this.levels[this.levelIndex]);
-
         setTimeout(() => {
             this.changeLevels = true;
         }, this.levels[this.levelIndex].time);
 
-        this.playNextLevelSound();
+        this.drawLevel(this.levels[this.levelIndex]);
     }
 
     drawLevel() {
-        $("#grid").empty();
-
         let level = this.levels[this.levelIndex];
         let colors = level.colors;
         let sizeChange = level.sizeChange;
- 
-        if(sizeChange) {
-            if(sizeChange == 'halveWidth') {
+        let reverse = level.reverse;
+        let afterReverse = level.afterReverse;
+
+        if (sizeChange) {
+            if (sizeChange == 'halveWidth') {
                 this.halveWidth();
             } else {
                 this.halveHeight();
             }
         }
 
-        if(colors.length == 1) {
+        if (afterReverse) {
+            this.afterReverseLevel();
+            level.afterReverse = false;
+            return;
+        }
+
+        $("#grid").empty();
+
+        if (reverse) {
+            this.reverseLevel();
+            return;
+        }
+
+        if (colors.length == 1) {
             this.fillColor(level.colors[0]);
         } else if (colors.length < 4) {
             this.fillRandomSelection(colors);
         } else {
             this.fillRandom();
         }
-    }
-
-    playNextLevelSound() {
-        this.player.playNextLevelSound();
     }
 }

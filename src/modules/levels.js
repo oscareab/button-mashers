@@ -2,7 +2,7 @@
 const Levels = [
     {
         time: 20000,
-        colors: ['pink']
+        colors: ['pink'],
     }, 
     {
         time: 20000,
@@ -37,9 +37,15 @@ const Levels = [
         colors: ['green']
     },
     {
-        time: 40000,
-        colors: ['blue', 'pink', 'purp', 'green']
-    },
+        time: 100,
+        colors: ['pink', 'green', 'purp', 'blue'],
+        reverse: true
+    }, 
+    {
+        time: 20000,
+        colors: ['pink', 'green', 'purp', 'blue'],
+        afterReverse: true
+    }, 
     {
         time: 10000,
         colors: ['pink', 'purp', 'green']

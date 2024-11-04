@@ -1,21 +1,16 @@
 import '/node_modules/tone/build/Tone.js';
 
 import { Synth } from './synth.js';
-import { KickDrum } from './kick.js';
-import { HighHat } from './highhat.js';
-import { Snare } from './snare.js';
 import { Bass } from './bass.js';
 import { Twinkle } from './twinkle.js';
+import { Percussion } from './perc.js';
 
 export class Player {
     constructor(grid) {
         this.synth = new Synth();
-        this.kick = new KickDrum();
-        this.hats = new HighHat();
-        this.snare = new Snare();
+        this.perc = new Percussion();
         this.bass = new Bass();
         this.twinkle = new Twinkle();
-        this.player = new Tone.Player().toDestination();
 
         this.beat = [
             ['h', 'k'], 'h',['h', 'k'], 'h', ['h', 'k', 's'], 'h', 'h', 's', ['h', 'k'], 's', ['h', 'k'], 'h', ['h', 'k', 's'], 'h', 'h', 'h']
@@ -74,23 +69,8 @@ export class Player {
         return baseFreq * Math.pow(2, n_floor / 19);
     }
 
-    playBeat() {
-        let notes = this.beat[this.beatIndex % this.beat.length];
-
-        for (const note of notes) {
-            switch (note) {
-                case 'k':
-                    this.kick.play();
-                    break;
-                case 'h':
-                    this.hats.play();
-                    break;
-                case 's':
-                    this.snare.play();
-                    break;
-            }
-        }
-        this.beatIndex++;
+    playPerc() {
+        this.perc.play();
     }
 
     playBass(index) {
@@ -128,12 +108,5 @@ export class Player {
 
     playTwinkle() {
         this.twinkle.play();
-    }
-
-    playNextLevelSound() {
-        const player = this.player;
-        player.load("assets/cassette.mp3").then(() => {
-            player.start();
-        })
     }
 }
