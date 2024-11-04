@@ -8,7 +8,7 @@ export class HealthManager {
         setInterval(() => {
             this.refillHealth();
             this.drawAllHealth();
-        }, 700);
+        }, 1500);
     }
 
     getHealth(color) {
@@ -39,13 +39,13 @@ export class HealthManager {
                 this.cooling.delete(color);
             }
             this.drawHealth(color);
-        }, 500);
+        }, 1000);
     }
 
     refillHealth() {
         for (const color of Object.keys(this.health)) {
             if (this.health[color] < 100 && !this.cooling.has(color)) {
-                this.health[color] = Math.min(this.health[color] + 10, 100);
+                this.health[color] = Math.min(this.health[color] + 20, 100);
                 this.drawHealth(color);
             }
         }
