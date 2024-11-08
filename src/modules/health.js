@@ -2,64 +2,63 @@ import '/node_modules/jquery/dist/jquery.min.js';
 
 export class HealthManager {
     constructor() {
-        this.health = { pink: 100, blue: 100, green: 100, purp: 100 };
-        this.cooling = new Set();
+        this.colors = ['pink', 'blue', 'green', 'purp'];
+        this.health = 100;
+        this.cooling = false;
 
         setInterval(() => {
             this.refillHealth();
-            this.drawAllHealth();
+            this.drawHealth();
         }, 1500);
     }
 
-    getHealth(color) {
-        return this.health[color];
+    getHealth() {
+        return this.health;
     }
 
-    decreaseHealth(color) {
-        this.health[color] -= 5;
-        if (this.health[color] <= 0) {
-            this.coolDown(color);
+    decreaseHealth() {
+        this.health -= 5;
+        if (this.health <= 0) {
+            this.coolDown();
         }
-        this.drawHealth(color);
+        this.drawHealth();
+        console.log(this.health);
     }
 
-    coolDown(color) {
-        this.cooling.add(color);
-        const button = $(`#${color}Btn`);
-        const originalClasses = button.attr('class');
+    coolDown() {
+        this.cooling = true;
 
-        button.attr('class', `btn no-animation rounded-none cursor-default bg-dark${color} basis-1/2 hover:bg-dark${color} h-full w-full`);
+        for (const color of this.colors) {
+            console.log(color);
+            const button = $(`#${color}Btn`);
+            button.attr('class', `btn no-animation rounded-none cursor-default bg-dark${color} basis-1/2 hover:bg-dark${color} h-full w-full`);
+        }
 
-        const intervalId = setInterval(() => {
-            if (this.health[color] < 100) {
-                this.health[color] += 20;
+        const interval = setInterval(() => {
+            if (this.health < 100) {
+                this.health += 20;
             } else {
-                clearInterval(intervalId);
-                button.attr('class', originalClasses);
-                this.cooling.delete(color);
+                clearInterval(interval);
+                for (const color of this.colors) {
+                    const button = $(`#${color}Btn`);
+                    button.attr('class', `btn rounded-none bg-${color} hover:bg-${color} active:bg-[#FFFFFF] h-full w-full`);
+                }
+                this.cooling = false;
             }
-            this.drawHealth(color);
-        }, 1000);
+            this.drawHealth();
+        }, 1500);
     }
 
     refillHealth() {
-        for (const color of Object.keys(this.health)) {
-            if (this.health[color] < 100 && !this.cooling.has(color)) {
-                this.health[color] = Math.min(this.health[color] + 20, 100);
-                this.drawHealth(color);
-            }
+        if (this.health < 100 && !this.cooling) {
+            this.health = Math.min(this.health + 25, 100);
+            this.drawHealth();
         }
     }
 
-    drawHealth(color) {
-        $(`#${color}Health`).html(
-            `<div class='bg-white ' style='width: ${this.health[color]}%; height: 10px; border-radius: 5px;'></div>`
+    drawHealth() {
+        $(`#healthDiv`).html(
+            `<div class='bg-white h-full' style='width: ${this.health}%; border-radius: 5px;'></div>`
         );
-    }
-
-    drawAllHealth() {
-        for (const color of Object.keys(this.health)) {
-            this.drawHealth(color);
-        }
     }
 }

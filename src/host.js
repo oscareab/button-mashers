@@ -24,7 +24,7 @@ $(function () {
             } else if (document.exitFullscreen) {
                 document.exitFullscreen();
             }
-        }
+        }   
     });
 
     $("#startText").on('animationend', function () {

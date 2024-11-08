@@ -120,12 +120,16 @@ export class Grid {
             let classes = button.attr('class').split(/\s+/);
 
             if (classes[0] == color) {
-                button.replaceWith(`<div class="bg-${color} w-[50px] h-[50px] m-0 border-black border-2 killed"></div>`);
+                button.replaceWith(`<div id="replaced-${index}" class="bg-${color} w-[50px] h-[50px] m-0 border-black border-2 killed"></div>`);
+                const replacedButton = $(`#replaced-${index}`);
 
                 this.colorsLeft[this.colors.indexOf(color)]--;
                 killed = true;
 
                 this.play(color, index);
+                setTimeout(() => {
+                    replacedButton.toggleClass('killed');
+                }, 1000);
             }
         }
     }
@@ -162,7 +166,6 @@ export class Grid {
         for (const child of children) {
             let classes = $(child).attr('class').split(/\s+/);
             let color = classes[0].substring(3);
-            console.log(color);
             this.colorsLeft[this.colors.indexOf(color)]++;
         }
     }

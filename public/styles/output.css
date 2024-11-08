@@ -1289,6 +1289,10 @@ html {
   margin-inline-start: calc(var(--border-btn) * -1);
 }
 
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
 .m-0 {
   margin: 0px;
 }
@@ -1330,6 +1334,18 @@ html {
   height: 100vh;
 }
 
+.h-1 {
+  height: 0.25rem;
+}
+
+.h-\[20vh\] {
+  height: 20vh;
+}
+
+.h-4 {
+  height: 1rem;
+}
+
 .w-\[50px\] {
   width: 50px;
 }
@@ -1354,6 +1370,10 @@ html {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.grid-rows-3 {
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+}
+
 .grid-rows-2 {
   grid-template-rows: repeat(2, minmax(0, 1fr));
 }
@@ -1376,6 +1396,10 @@ html {
 
 .rounded-none {
   border-radius: 0px;
+}
+
+.rounded {
+  border-radius: 0.25rem;
 }
 
 .border-2 {
