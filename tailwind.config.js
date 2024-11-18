@@ -42,6 +42,7 @@ export default {
       black: "#000000"
     },
   },
+  darkMode: false,
   plugins: [
     require('daisyui'),
   ],
