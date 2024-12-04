@@ -107,8 +107,8 @@ function initQR() {
     let url = 'https://button-mashers.oscaravila.me/client.html';
     let qrcode = new QRCode('qr', {
         text: url,
-        width: 512,
-        height: 512
+        width: 700,
+        height: 700
     });
     qrcode.makeCode(url);
 }
